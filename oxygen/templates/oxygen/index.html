@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}
+Index
+{% endblock title %}
+
+
+{% block content %}
+<header class= "header">
+<a id = "btnhamburger" href = "#" class=" header__toggle hide-for-desktop">
+  <span></span>
+  <span></span>
+  <span></span>
+</a>
+</header>
+
+
+<section class = "cards">
+  <div class="col-lg-12 main-chart">
+    <div class = 'row'>
+      <div class = "col-md-6 col-sm-6 mb">
+        <div class="blue-panel pn" style="height:350px;">
+        <a href="{% url 'oxygen:oxygen_info' %}">
+
+            <h1>OXYGEN</h1>
+
+        </div>
+      </div>
+
+
+      <div class = "col-md-6 col-sm-6 mb">
+        <div class="blue-panel pn" style="height:350px;">
+        <a href="{% url 'beds:beds_info' %}">
+            <center>
+            <h1>BEDS</h1>
+          </center>
+        </div>
+      </div>
+    </div>
+
+
+  <div class = 'row'>
+
+      <div class = "col-md-6 col-sm-6 mb" style = "margin-left:350px;">
+        <div class="blue-panel pn" style="height:350px;">
+
+        <a href="{% url 'counsellor:counsellor_info' %}" class = "article1__item">
+          <center>
+            <h1>Counsellors</h1>
+          </center>
+        </div>
+      </div>
+
+
+</section>
+
+
+
+{% endblock content %}

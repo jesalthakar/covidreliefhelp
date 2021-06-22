@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+Counsellor
+{% endblock title %}
+
+{% block header %}
+
+{% endblock %}
+
+{% block content %}
+
+<nav class="navbar navbar-expand-lg flex flex flex-jc-sb  flex-ai-c ">
+  <span>
+    <a class="nav-link" href="{% url 'oxygen:index' %}">Home</a>
+    <a class="nav-link" href="{% url 'oxygen:oxygen_info' %}">Oxygen</a>
+    <a class="nav-link" href="{% url 'beds:beds_info' %}">Beds</a>
+  </span>
+</nav>
+
+<section class = ' filter'>
+  <div class ='row'>
+        <form class='filter__form filter__grid-conatiner' method = "get">
+          <label class = 'filter__label' for="id_counsellor">Counsellor Name</label>
+          <input class ='filter__input'type="text" name="Name" id="id_counsellor">
+          <label class = 'filter__label' for="id_contact">Contact nos</label>
+          <input class ='filter__input' type="text" name="Contact" id="id_contact">
+          <label  class = 'filter__label' for="id_location">Location</label>
+          <input class ='filter__input' type="text" name="location" id="id_location">
+          <label class = 'filter__label' for="id_start_date">date from</label>
+          <input class ='filter__input' type="text" name="start_date" id="id_start_date">
+          <label class = 'filter__label' for="id_end_date">date to</label>
+          <input class ='filter__input' type="text" name="end_date" id="id_end_date">
+          <button class="filter__button" type="submit">Search</button>
+        </form>
+  </div>
+</section>
+
+<div class = "row hide-for-desktop">
+  {% for counsellor in counsellors %}
+    <div class ='col-sm-6'>
+      <div class="oxygen-panel pn">
+        <div class ="panel-heading text-center">
+          <h5>{{counsellor.Counsellor_Name}}</h5>
+        </div>
+        <div class ="panel-body text-center">
+
+          {{counsellor.Contact_nos}}<br>
+          {{counsellor.Location}}
+          <h6>additional info:{{bed.additional_info}}</h6>
+          <h6>{{bed.created}}</h6>
+        </div>
+      </div>
+    </div>
+{% endfor %}
+</div>
+
+<table class="table table-hover hide-for-mobile">
+  <tr>
+    <th>Counsellor Name</th>
+    <th>Contact Nos</th>
+    <th>Location</th>
+    <th>Additional info</th>
+    <th>Created</th>
+  </tr>
+
+    {% for counsellor in counsellors %}
+    <tr>
+      <td>{{counsellor.Counsellor_Name}}</td>
+      <td>{{counsellor.Contact_nos}}</td>
+      <td>{{counsellor.Location}}</td>
+      <td>{{counsellor.additional_info}}</td>
+      <td>{{counsellor.created}}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<footer class = "footer">
+  {% if counsellors.has_other_pages %}
+  <div class = "text-center">
+    <ul class="pagination">
+      {% if counsellors.has_previous %}
+        <li><a href="?page={{counsellors.previous_page_number}}">Previous</a></li>
+      {% else %}
+        <li class="disabled"><span>Previous</span></li>
+      {% endif %}
+      {% for i in counsellors.paginator.page_range %}
+        {% if counsellors.number == i %}
+          <li class="active"><span>{{ i }}<span class="sr-only">(current)</span></span></li>
+
+        {% else %}
+          <li><a href="?page={{ i }}">{{ i }}</a></li>
+        {% endif %}
+      {% endfor %}
+      {% if counsellors.has_next %}
+        <li><a href="?page={{counsellors.next_page_number}}">Next</a></li>
+      {% else %}
+        <li class = "disabled"><span>Next</span></li>
+      {% endif %}
+    </ul>
+  </div>
+  {% endif %}
+</footer>
+
+
+
+{% endblock content %}

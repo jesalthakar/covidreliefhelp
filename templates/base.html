@@ -1,0 +1,37 @@
+
+<!doctype html>
+{% load render_table from django_tables2 %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+
+
+<html lang="en">
+
+<head>
+  {% load static %}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+  <link rel="shortcut icon" href="{% static 'favicon.ico' %}" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400&display=swap" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" defer></script>
+  <script src="{% static 'js/script.js' %}" defer></script>
+  <link rel = 'stylesheet' href="{% static 'oxygen/style.css' %}" />
+  {% block scripts %}
+  {% endblock scripts %}
+
+
+
+<title>app |{% block title %}{% endblock title %}</title>
+
+</head>
+
+<body>
+  {% block content %}
+
+  {% endblock content %}
+
+
+</body>
+
+
+</html>

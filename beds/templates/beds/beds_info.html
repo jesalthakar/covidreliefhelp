@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+Beds
+{% endblock title %}
+
+
+{% block content %}
+
+<nav class="navbar navbar-expand-lg flex flex flex-jc-sb  flex-ai-c">
+  <span>
+    <a class="nav-link" href="{% url 'oxygen:index' %}">Home</a>
+    <a class="nav-link" href="{% url 'oxygen:oxygen_info' %}">Oxygen</a>
+    <a class="nav-link" href="{% url 'counsellor:counsellor_info' %}">Counsellors</a>
+  </span>
+</nav>
+<section class = ' filter'>
+  <div class ='row'>
+        <form class='filter__form filter__grid-conatiner' method = "get">
+          <label class = 'filter__label' for="id_hospital">Hospital</label>
+          <input class ='filter__input'type="text" name="hospital" id="id_hospital">
+          <label class = 'filter__label' for="id_City">City</label>
+          <input class ='filter__input' type="text" name="City" id="id_City">
+          <label  class = 'filter__label' for="id_POC">POC</label>
+          <input class ='filter__input' type="text" name="POC" id="id_POC">
+          <label class = 'filter__label' for="id_start_date">date from</label>
+          <input class ='filter__input' type="text" name="start_date" id="id_start_date">
+          <label class = 'filter__label' for="id_end_date">date to</label>
+          <input class ='filter__input' type="text" name="end_date" id="id_end_date">
+          <button class="filter__button" type="submit">Search</button>
+        </form>
+  </div>
+</section>
+<div class = "row hide-for-desktop">
+  {% for bed in beds %}
+    <div class ='col-sm-6'>
+      <div class="oxygen-panel pn">
+        <div class ="panel-heading text-center">
+          <h5>{{beds.hospital}}</h5>
+        </div>
+        <div class ="panel-body text-center">
+
+          {{bed.Address}}<br>
+          {{bed.city}}
+          <h6>POC:{{bed.poc}}</h6>
+          <h6>additional info:{{bed.additional_info}}</h6>
+          <h6>{{bed.created}}</h6>
+        </div>
+      </div>
+    </div>
+{% endfor %}
+</div>
+
+
+<table class="table table-hover hide-for-mobile">
+  <tr>
+    <th>Hospital</th>
+    <th>Address</th>
+    <th>City</th>
+    <th>POC</th>
+    <th>Additional info</th>
+    <th>Created</th>
+  </tr>
+
+    {% for bed in beds %}
+    <tr>
+      <td>{{bed.hospital}}</td>
+      <td>{{bed.Address}}</td>
+      <td>{{bed.city}}</td>
+      <td>{{bed.poc}}</td>
+      <td>{{bed.additional_info}}</td>
+      <td>{{bed.created}}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<footer class = "footer">
+  {% if beds.has_other_pages %}
+  <div class = "text-center">
+    <ul class="pagination">
+      {% if beds.has_previous %}
+        <li><a href="?page={{beds.previous_page_number}}">Previous</a></li>
+      {% else %}
+        <li class="disabled"><span>Previous</span></li>
+      {% endif %}
+      {% for i in beds.paginator.page_range %}
+        {% if beds.number == i %}
+          <li class="active"><span>{{ i }}<span class="sr-only">(current)</span></span></li>
+
+        {% else %}
+          <li><a href="?page={{ i }}">{{ i }}</a></li>
+        {% endif %}
+      {% endfor %}
+      {% if beds.has_next %}
+        <li><a href="?page={{beds.next_page_number}}">Next</a></li>
+      {% else %}
+        <li class = "disabled"><span>Next</span></li>
+      {% endif %}
+    </ul>
+    {% endif %}
+</footer>
+
+{% endblock content %}

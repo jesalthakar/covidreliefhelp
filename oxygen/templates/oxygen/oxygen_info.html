@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+
+
+
+{% block title %}
+Oxygen
+{% endblock title %}
+
+{% block header %}
+
+{% endblock %}
+
+{% block content %}
+<nav class="navbar navbar-expand-lg flex flex flex-jc-sb  flex-ai-c">
+  <span>
+    <a class="nav-link" href="{% url 'oxygen:index' %}">Home</a>
+    <a class="nav-link" href="{% url 'beds:beds_info' %}">Beds</a>
+    <a class="nav-link" href="{% url 'counsellor:counsellor_info' %}">Counsellors</a>
+  </span>
+</nav>
+
+<section class = ' filter'>
+  <div class ='row'>
+        <form class='filter__form filter__grid-conatiner' method = "get">
+          <label class = 'filter__label' for="id_hospital">Hospital</label>
+          <input class ='filter__input'type="text" name="hospital" id="id_hospital">
+          <label class = 'filter__label' for="id_City">City</label>
+          <input class ='filter__input' type="text" name="City" id="id_City">
+          <label  class = 'filter__label' for="id_POC">POC</label>
+          <input class ='filter__input' type="text" name="POC" id="id_POC">
+          <label class = 'filter__label' for="id_start_date">date from</label>
+          <input class ='filter__input' type="text" name="start_date" id="id_start_date">
+          <label class = 'filter__label' for="id_end_date">date to</label>
+          <input class ='filter__input' type="text" name="end_date" id="id_end_date">
+          <button class="filter__button" type="submit">Search</button>
+        </form>
+  </div>
+
+</section>
+<div class = "row hide-for-desktop">
+  {% for oxy in oxygen %}
+    <div class ='col-sm-6'>
+      <div class="oxygen-panel pn">
+        <div class ="panel-heading text-center">
+          <h5>{{oxy.hospital}}</h5>
+        </div>
+        <div class ="panel-body text-center">
+
+          {{oxy.Address}}<br>
+          {{oxy.city}}
+          <h6>POC:{{oxy.poc}}</h6>
+          <h6>additional info:{{oxy.additional_info}}</h6>
+          <h6>{{oxy.created}}</h6>
+        </div>
+
+
+      </div>
+    </div>
+{% endfor %}
+</div>
+
+  <table class="table table-hover hide-for-mobile">
+    <tr>
+      <th>Hospital</th>
+      <th>Address</th>
+      <th>City</th>
+      <th>POC</th>
+      <th>Additional info</th>
+      <th>Created</th>
+    </tr>
+
+      {% for oxy in oxygen %}
+      <tr>
+        <td>{{oxy.hospital}}</td>
+        <td>{{oxy.Address}}</td>
+        <td>{{oxy.city}}</td>
+        <td>{{oxy.poc}}</td>
+        <td>{{oxy.additional_info}}</td>
+        <td>{{oxy.created}}</td>
+
+      </tr>
+    {% endfor %}
+
+</table>
+
+
+<footer class = "footer">
+  {% if oxygen.has_other_pages %}
+  <div class = "text-center">
+    <ul class="pagination">
+      {% if oxygen.has_previous %}
+        <li><a href="?page={{oxygen.previous_page_number}}">Previous</a></li>
+      {% else %}
+        <li class="disabled"><span>Previous</span></li>
+      {% endif %}
+      {% for i in oxygen.paginator.page_range %}
+        {% if oxygen.number == i %}
+          <li class="active"><span>{{ i }}<span class="sr-only">(current)</span></span></li>
+
+        {% else %}
+          <li><a href="?page={{ i }}">{{ i }}</a></li>
+        {% endif %}
+      {% endfor %}
+      {% if oxygen.has_next %}
+        <li><a href="?page={{oxygen.next_page_number}}">Next</a></li>
+      {% else %}
+        <li class = "disabled"><span>Next</span></li>
+      {% endif %}
+    </ul>
+  </div>
+  {% endif %}
+</footer>
+{% endblock content %}

@@ -1,0 +1,82 @@
+
+.filter{
+
+  @include breakpoint-down(small){
+
+
+
+
+    height: 470px;
+    background-color: #f5f5f5;
+    border-radius: 10px;
+
+    &__grid-conatiner{
+      display:grid;
+    }
+
+    &__form{
+      margin:25px;
+    }
+
+    &__label{
+      margin-bottom:5px;
+      margin-top:5px;
+      margin-left:40%;
+      color:black;
+      font-size: 100%;
+    }
+
+    &__input{
+      margin-bottom: 10px;
+      margin-left:30px;
+      border-radius:5px;
+      width:75%;
+    }
+
+    &__button{
+
+    }
+
+    
+  }
+
+
+  @include breakpoint-up(large){
+    height: 150px;
+    background-color: #f5f5f5;
+    border-radius: 10px;
+
+    &__form{
+      margin:20px;
+    }
+
+    &__label{
+      color:black;
+      font-size: 100%;
+    }
+    &__input{
+      margin-right:10px;
+      margin-left:10px;
+      margin-bottom:10px;
+      border-width: 1px;
+      border-radius:5px;
+    }
+  }
+  &__button{
+    display: inline-block;
+    background-color:lightgrey;
+    padding: 6px 12px;
+    border: 1px solid transparent;
+    font-weight: 400;
+    text-align:center;
+    border-radius:6px;
+    color:black;
+    font-family: sans-serif;
+
+    &:hover{
+      background-color: lightgreen;
+      transform: scale(1.05);
+      transition: all 150ms ease-in-out;
+    }
+  }
+}
